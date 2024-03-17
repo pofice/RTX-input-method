@@ -1,0 +1,8 @@
+ext {
+    app_name = "RTX语音输入法"
+    isLocal = "false"
+    application_id = "com.peakchao.webapp"
+    web_url = "192.168.1.192:8050"
+}
+
+

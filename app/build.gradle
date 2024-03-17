@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+
+android {
+
+    compileSdkVersion 28
+
+    defaultConfig {
+        applicationId application_id
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField("boolean", "isLocal", isLocal)
+        buildConfigField("String", "web_url", "\"" + web_url + "\"")
+        manifestPlaceholders = [app_name: app_name, app_icon: "@drawable/ic_launcher"]
+
+    }
+
+    signingConfigs {
+        release {
+            keyAlias 'android'
+            keyPassword 'android'
+            storeFile file('../android.jks')
+            storePassword 'android'
+
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    buildTypes {
+
+        release {
+            //是否混淆
+            minifyEnabled true
+            //是否移除无用资源
+            zipAlignEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            signingConfig signingConfigs.release
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
